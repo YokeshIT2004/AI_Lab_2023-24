@@ -1,33 +1,88 @@
-# Ex.No: 8  Logic Programming –  Medical Diagnosis Expert System
+# Ex.No: 10  Logic Programming –  Simple queries from facts and rules
 ### DATE:                                                                            
-### REGISTER NUMBER : 
+### REGISTER NUMBER : 212221220062
 ### AIM: 
-Write a Prolog program to build a medical Diagnosis Expert System.
+To write a prolog program to find the answer of query. 
 ###  Algorithm:
-1. Start the program.
-2. Write the rules for each diseases.
-3. If patient have mumps then symptoms are fever and swollen glands.
-4. If patient have cough, sneeze and running nose then disease is measles.
-5. if patient have symptoms headache ,sneezing ,sore_throat, runny_nose and  chills then disease is common cold.
-6. Define rules for all disease.
-7. Call the predicates and Collect the symptoms of Patient and give the hypothesis of disease.
-        
+ Step 1: Start the program <br> 
+ Step 2: Convert the sentence into First order Logic  <br> 
+ Step 3:  Convert the sentence into Horn clause form  <br> 
+ Step 4: Add rules and predicates in a program   <br> 
+ Step 5:  Pass the query to program. <br> 
+ Step 6: Prolog interpreter shows the output and return answer. <br> 
+ Step 8:  Stop the program.
+### Program:
+### Task 1:
+Construct the FOL representation for the following sentences <br> 
+1.	John likes all kinds of food.  <br> 
+2.	Apples are food.  <br> 
+3.	Chicken is a food.  <br> 
+4.	Sue eats everything Bill eats. <br> 
+5.	 Bill eats peanuts  <br> 
+   Convert into clause form and Prove that John like Apple by using Prolog. <br> 
+### Program:
+```
+likes(john,X):-
+food(X).
+eats(bill,X):-
+eats(sue,X).
+eats(Y,X):-
+food(X).
+eats(bill,peanuts).
+food(apple).
+food(chicken).
+food(peanuts).
+```
+### Output:
+![image](https://github.com/nithish143257/AI_Lab_2023-24/assets/113762839/4eb57cff-65ee-4b6d-917f-7ac27163e492)
+
+### Task 2:
+Consider the following facts and represent them in predicate form: <br>              
+1.	Steve likes easy courses. <br> 
+2.	Science courses are hard. <br> 
+3. All the courses in Have fun department are easy <br> 
+4. BK301 is Have fun department course.<br> 
+Convert the facts in predicate form to clauses and then prove by resolution: “Steve likes BK301 course”<br> 
 
 ### Program:
-
-
-
-
-
-
-
-
-
-
-
+```
+likes(steve,X):-
+easycourse(X).
+hard(sciencecourse).
+easycourse(X):-
+course(X,dept(havefun)).
+course(bk301,dept(havefun)).
+```
 ### Output:
 
+![image](https://github.com/nithish143257/AI_Lab_2023-24/assets/113762839/f8f5b544-e675-458d-9e1e-3c285303af48)
 
+### Task 3:
+Consider the statement <br> 
+“This is a crime for an American to sell weapons to hostile nations. The Nano , enemy of America has some missiles and its missiles were sold it by Colonal West who is an American” <br> 
+Convert to Clause form and prove west is criminal by using Prolog.<br> 
+### Program:
+```
+criminal(X):-
+american(X),
+weapon(Y),
+hostile(Z),
+sells(X,Y,Z).
+weapon(Y):-
+missile(Y).
+hostile(Z):-
+enemy(Z,X).
+sells(west,Y,nano):-
+missile(Y),
+owns(nano,Y).
+missile(m).
+owns(nano,m).
+enemy(nano,america).
+american(west).
+```
+### Output:
+
+![image](https://github.com/nithish143257/AI_Lab_2023-24/assets/113762839/8b1c63f5-f6fe-49bd-952a-e9186322c06c)
 
 ### Result:
-Thus the simple medical diagnosis system was built sucessfully.
+Thus the prolog programs were executed successfully and the answer of query was found.

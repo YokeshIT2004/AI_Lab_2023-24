@@ -1,67 +1,52 @@
-# Ex.No: 11  Planning –  Block World Problem 
-### DATE:  18/10/2023                                                                          
+# Ex.No: 8  Logic Programming –  Medical Diagnosis Expert System
+### DATE:                                                                            
 ### REGISTER NUMBER : 212221220062
-
 ### AIM: 
-To find the sequence of plan for Block word problem using PDDL  
+Write a Prolog program to build a medical Diagnosis Expert System.
 ###  Algorithm:
-Step 1 :  Start the program <br>
-Step 2 : Create a domain for Block world Problem <br>
-Step 3 :  Create a domain by specifying predicates clear, on table, on, arm-empty, holding. <br>
-Step 4 : Specify the actions pickup, putdown, stack and un-stack in Block world problem <br>
-Step 5 :  In pickup action, Robot arm pick the block on table. Precondition is Block is on table and no other block on specified block and arm-hand empty.<br>
-Step 6:  In putdown action, Robot arm place the block on table. Precondition is robot-arm holding the block.<br>
-Step 7 : In un-stack action, Robot arm pick the block on some block. Precondition is Block is on another block and no other block on specified block and arm-hand empty.<br>
-Step 8 : In stack action, Robot arm place the block on under block. Precondition is Block holded by robot arm and no other block on under block.<br>
-Step 9 : Define a problem for block world problem.<br> 
-Step 10 : Obtain the plan for given problem.<br> 
-     
+1. Start the program.
+2. Write the rules for each diseases.
+3. If patient have mumps then symptoms are fever and swollen glands.
+4. If patient have cough, sneeze and running nose then disease is measles.
+5. if patient have symptoms headache ,sneezing ,sore_throat, runny_nose and  chills then disease is common cold.
+6. Define rules for all disease.
+7. Call the predicates and Collect the symptoms of Patient and give the hypothesis of disease.
 ### Program:
 ```
-(define (domain blocksworld)
-(:requirements :strips :equality)
-(:predicates (clear ?x)
-(on-table ?x)
-(arm-empty)
-(holding ?x)
-(on ?x ?y))
-(:action pickup
-:parameters (?ob)
-:precondition (and (clear ?ob) (on-table ?ob) (arm-empty))
-:effect (and (holding ?ob) (not (clear ?ob)) (not (on-table ?ob))
-(not (arm-empty))))
-(:action putdown
-:parameters (?ob)
-:precondition (and (holding ?ob))
-:effect (and (clear ?ob) (arm-empty) (on-table ?ob)
-(not (holding ?ob))))
-(:action stack
-:parameters (?ob ?underob)
-:precondition (and (clear ?underob) (holding ?ob))
-:effect (and (arm-empty) (clear ?ob) (on ?ob ?underob)
-(not (clear ?underob)) (not (holding ?ob))))
-(:action unstack
-:parameters (?ob ?underob)
-:precondition (and (on ?ob ?underob) (clear ?ob) (arm-empty))
-:effect (and (holding ?ob) (clear ?underob)
-(not (on ?ob ?underob)) (not (clear ?ob)) (not (arm-empty)))))
-
+hypothesis(Patient,german_measles) :-
+symptom(Patient,fever),
+symptom(Patient,headache),
+symptom(Patient,runny_nose),
+symptom(Patient,rash).
+hypothesis(Patient,flu) :-
+symptom(Patient,fever),
+symptom(Patient,headache),
+symptom(Patient,body_ache),
+symptom(Patient,conjunctivitis),
+symptom(Patient,chills),
+symptom(Patient,sore_throat),
+symptom(Patient,runny_nose),
+symptom(Patient,cough).
+hypothesis(Patient,common_cold) :-
+symptom(Patient,headache),
+symptom(Patient,sneezing),
+symptom(Patient,sore_throat).
+hypothesis(Patient,chicken_pox) :-
+symptom(Patient,fever),
+symptom(Patient,chills),
+symptom(Patient,body_ache),
+symptom(Patient,rash).
+hypothesis(Patient,measles) :-
+symptom(Patient,cough),
+symptom(Patient,sneezing),
+symptom(Patient,runny_nose).
+symptom(raju,headache).
+symptom(raju,sneezing).
+symptom(raju,sore_throat).
 ```
+### Output:
 
-### Input 
-```
-(define (problem pb1)
-(:domain blocksworld)
-(:objects a b)
-(:init (on-table a) (on-table b) (clear a) (clear b) (arm-empty))
-(:goal (and (on a b))))
-```
-
-### Output/Plan:
-![image](https://github.com/nithish143257/AI_Lab_2023-24/assets/113762839/3fa4e828-6c8d-401f-b33b-60982d21edce)
-
-
-
+![image](https://github.com/HariHaranLK/AI_Lab_2023-24/assets/132996089/88dfa5bf-2926-467e-9b90-ca8a392e8360)
 
 ### Result:
-Thus the plan was found for the initial and goal state of block world problem.
+Thus the simple medical diagnosis system was built sucessfully.
